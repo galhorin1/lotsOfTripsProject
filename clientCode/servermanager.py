@@ -1,12 +1,13 @@
 import socket
 import json
+import time
 
 hostIP = '127.0.0.1'
 port = 35970
 buffer_size = 1024
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect((hostIP, port))
-client_socket.settimeout(2.5)
+client_socket.settimeout(0.5)
 
 
 def check_server(text, card):
