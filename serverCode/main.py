@@ -8,7 +8,7 @@ server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_socket.bind(("127.0.0.1", port))
 server_socket.listen(5)
 buffer_size = 1024
-server_socket.settimeout(2.5)
+server_socket.settimeout(0.5)
 clients = {}
 requests_dict = {'exist': lambda data2: sql.get_exists(data2['card']),
                  'create': lambda data2: str(sql.new_card()),
@@ -33,7 +33,7 @@ if __name__ == '__main__':
             client, address = server_socket.accept()
             if client not in clients:
                 clients[client] = address
-                client.settimeout(2.5)
+                client.settimeout(0.5)
         except socket.timeout:
             print("No accept. Timed out.")
         del_keys = []

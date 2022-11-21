@@ -74,9 +74,11 @@ def get_card_info(card):
     select_card = f'''SELECT *
                     FROM users
                     WHERE card_no="{card}";'''
-    cursor.execute(select_card)
-    card_info = cursor.fetchone()
-    return str(f"{card_info[0]},{card_info[1]},{card_info[2]}")
+    if get_exists(card) == 'yes':
+        cursor.execute(select_card)
+        card_info = cursor.fetchone()
+        return str(f"{card_info[0]},{card_info[1]},{card_info[2]}")
+    return "error card does not exist"
 
 
 # check if card exists
@@ -84,8 +86,7 @@ def get_exists(card):
     try:
         c = int(card)
         if c < MIN_CARD_VALUE or c > MAX_CARD_VALUE:
-            print("no")
-            return 'No'
+            return 'no'
         else:
             select_card = f'''SELECT *
                             FROM users
