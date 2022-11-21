@@ -57,7 +57,9 @@ def add_update_card(card, cont, wallet):
             contract_exists = True
     if contract_exists:
         try:
-            int(wallet)
+            w = int(wallet)
+            if w < 0:
+                return "wallet value cannot be negative"
         except ValueError:
             return 'error wallet value is not a number'
         add = '''INSERT OR REPLACE INTO users
