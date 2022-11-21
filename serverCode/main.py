@@ -7,6 +7,7 @@ sql = sqlhelper
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_socket.bind(("127.0.0.1", port))
 server_socket.listen(5)
+buffer_size = 1024
 server_socket.settimeout(2.5)
 clients = {}
 requests_dict = {'exist': lambda data2: sql.get_exists(data2['card']),
@@ -40,7 +41,7 @@ if __name__ == '__main__':
         if clients:
             for c in clients:
                 try:
-                    data = c.recv(1024).decode('utf-8')
+                    data = c.recv(buffer_size).decode('utf-8')
                     try:
                         d = json.loads(data)
                         c.sendall(bytes(handle_request(d), encoding='utf-8'))
