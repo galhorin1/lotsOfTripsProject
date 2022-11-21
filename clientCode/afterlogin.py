@@ -102,6 +102,7 @@ class AfterLogin(tk.Frame):
             d = str(f"{self.card_info[0]},{contract},{self.card_info[2]}")
             self.datasheet.write_file(d)
             self.upt_label()
+            self.set_error_msg("Contract updated successfully")
         else:
             self.set_error_msg(replay)
 
